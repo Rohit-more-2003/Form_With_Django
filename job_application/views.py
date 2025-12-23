@@ -4,6 +4,8 @@ from .models import Form
 
 from django.contrib import messages
 
+from django.core.mail import EmailMessage
+
 # Create your views here.
 def index(request):
 	if request.method == "POST":
@@ -20,6 +22,10 @@ def index(request):
 			
 			# This is to confirm whether we got the user input data or not
 			# print(first_name)
+			
+			message_body = f"A new job application was submitted. Thank you, {first_name}."
+			email_message = EmailMessage("Form submission successful", message_body,
+			                             to=(email, ))
 		
 			messages.success(request, 'Form submitted successfully.')
 		
